@@ -1,15 +1,18 @@
-import React, { FC } from "react";
-import logo from "./logo.svg";
-import styled from "styled-components";
-import { colour_map } from "./styles/colour-map";
+import React, { FC } from 'react';
+import logo from './logo.svg';
+import styled from 'styled-components';
+import { fontSizes } from 'design-system/font-sizes';
+import { imgHeights } from 'design-system/img-heights';
+import { fontColours } from 'design-system/font-colours';
 
 
 const MainApp = styled.div`
     display: flex;
+    align-items: center;
 `
 
 const Logo = styled.img`
-    height: 40vmin;
+    height: ${ imgHeights.h1 };
     pointer-events: none;
 `
 
@@ -18,7 +21,11 @@ const Header = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: ${ colour_map.white };
+`
+
+const Text = styled.span`
+    font-size: ${ fontSizes.h1 };
+    color: ${ fontColours.light };
 `
 
 // #################################################################################
@@ -28,11 +35,11 @@ const App: FC = () => {
     return (
         <MainApp>
             <Header>
-                <Logo src={ logo } alt="logo" />
+                <Logo src={ logo } alt='logo' />
             </Header>
-            <p>
+            <Text>
                 Edit and save to reload.
-            </p>
+            </Text>
         </MainApp>
     );
 }
