@@ -43,5 +43,3 @@ export const Home: FC = () => {
         </FlexContainer>
     );
 }
-
-// export default Home;
