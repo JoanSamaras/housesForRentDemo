@@ -1,10 +1,12 @@
-import { colours } from "./colours";
+/* eslint-disable import/prefer-default-export */
+
+import { colours } from './colours';
 
 export const fontColours = {
-    'white': colours.grey_1,
-    'light': colours.grey_3,
-    'medium': colours.grey_6,
-    'dark': colours.grey_7,
-    'extraDark': colours.grey_8,
-    'black': colours.grey_9
-}
+    white: colours.grey1,
+    light: colours.grey3,
+    medium: colours.grey6,
+    dark: colours.grey7,
+    extraDark: colours.grey8,
+    black: colours.grey9,
+};

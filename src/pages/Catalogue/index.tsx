@@ -1,28 +1,21 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
-import { fontSizes } from 'design-system/font-sizes';
-import { fontColours } from 'design-system/font-colours';
+import { api } from 'services/api';
+import { FlexContainer, Text } from './styled-components';
 
+const Catalogue: FC = () => {
+    const getListings = async () => {
+        const res = await api.getHomeListings();
 
-const FlexContainer = styled.div`
-    display: flex;
-    align-items: center;
-`
+        // eslint-disable-next-line
+        console.log( res );
+    };
 
-const Text = styled.span`
-    font-size: ${ fontSizes.h1 };
-    color: ${ fontColours.medium };
-`
-
-// #################################################################################
-
-
-export const Catalogue: FC = () => {
     return (
         <FlexContainer>
-            <Text>
-                Edit and save to reload.
-            </Text>
+            <Text>Edit and save to reload.</Text>
+            <button type="button" onClick={ getListings }>click me</button>
         </FlexContainer>
     );
-}
+};
+
+export default Catalogue;
