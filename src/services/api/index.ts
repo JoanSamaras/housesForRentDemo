@@ -21,5 +21,5 @@ const Get = <REQ, RES>( url: string ) => async ( req: REQ ) => {
 };
 
 export const api = {
-    getHomeListings: Get<void, HomeListing>( 'https://jsonplaceholder.typicode.com/users' ),
+    getHomeListings: Get<void, HomeListing[]>( 'https://jsonplaceholder.typicode.com/users' ),
 };

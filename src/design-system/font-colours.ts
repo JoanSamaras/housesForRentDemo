@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 import { colours } from './colours';
 
 export const fontColours = {

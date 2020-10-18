@@ -9,8 +9,8 @@ export type HomeListing = {
         city: string
         zipcode: string
         geo: {
-            lat: number
-            lng: number
+            lat: string
+            lng: string
         }
     }
     phone: string
@@ -20,4 +20,8 @@ export type HomeListing = {
         catchPhrase: string
         bs: string
     }
+}
+
+export type Popable = {
+    popup_element?: JSX.Element
 }

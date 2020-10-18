@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 /* eslint-disable no-multi-spaces */
 
 // used the online tool http://pxtoem.com/ for the conversion from px to em

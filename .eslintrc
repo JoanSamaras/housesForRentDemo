@@ -3,12 +3,12 @@
     "parserOptions": {
         "project": "tsconfig.json"
     },
-    "plugins": ["@typescript-eslint"],
+    "plugins": [
+        "@typescript-eslint/eslint-plugin"
+    ],
     "extends": [
-        "airbnb-typescript",
-        "airbnb/hooks",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
     "settings": {
         "import/resolver": {
@@ -53,20 +53,12 @@
             "error",
             4
         ],
-        "react/jsx-indent": [
-            "error",
-            4
-        ],
         "prefer-const": 1,
         "object-curly-spacing": [
             "error",
             "always"
         ],
         "template-curly-spacing": [
-            "error",
-            "always"
-        ],
-        "react/jsx-curly-spacing": [
             "error",
             "always"
         ],
@@ -118,10 +110,8 @@
             "always"
         ],
         "no-console": "off",
-        "@typescript-eslint/no-redeclare": "off",
-        "@typescript-eslint/no-shadow": [
-            "error",
-            { "builtinGlobals": false, "hoist": "functions", "allow": [] }
-        ]
+        "no-loop-func": "off",
+        "no-redeclare": "off",
+        "no-shadow": "off"
     }
 }

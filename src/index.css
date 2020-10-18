@@ -7,7 +7,7 @@ html, #root {
   margin: 0;
   font-family: 'Ubuntu', 'Segoe UI', 'Roboto', 'Oxygen',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
@@ -15,3 +15,6 @@ html, #root {
   min-height: 100%;
 }
 
+.MuiTypography-root {
+    font-family: inherit !important;
+}

@@ -14,4 +14,6 @@ export const spacings = {
     _8: '1.143rem',    // 16px
     _9: '1.286rem',    // 18px
     _10: '1.429rem',    // 20px
+    _11: '1.571rem',    // 22px
+    _12: '1.714rem',    // 24px
 };
