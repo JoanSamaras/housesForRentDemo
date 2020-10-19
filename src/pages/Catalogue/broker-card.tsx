@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, memo, useState } from 'react';
 import { Typography } from '@material-ui/core';
 import { BrokerCardContainer } from './styled-components';
 import { EmailIcon, UserIcon } from 'components/icons';
@@ -7,7 +7,7 @@ import { Row } from 'components/row-column';
 import { fontWeights } from 'design-system/font-weights';
 import { spacings } from 'design-system/spacings';
 
-export const BrokerCard: FC<{ full_name: string, email: string }> = p => {
+export const BrokerCard: FC<{ full_name: string, email: string }> = memo( p => {
     return (
         <BrokerCardContainer>
             <Typography 
@@ -47,4 +47,4 @@ export const BrokerCard: FC<{ full_name: string, email: string }> = p => {
             </Row>
         </BrokerCardContainer>
     )
-}
+})

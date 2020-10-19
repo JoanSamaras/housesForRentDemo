@@ -1,15 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC, memo, useState, useCallback, useEffect } from 'react';
 import { api } from 'services/api';
-import { 
-    Button, 
-    Card, 
-    CardActions, 
-    CardContent, 
-    Container, 
-    CssBaseline, 
-    Grid, 
-    Typography 
-} from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { CardItem } from './card-item';
 import { HomeListing } from 'types';
 import { spacings } from 'design-system/spacings';
@@ -17,19 +8,45 @@ import { PageTitle } from './styled-components';
 import overline from 'assets/custom_svgs/homeOverline.svg';
 import { AbsoluteDiv } from 'components/absolute-div';
 import { zIndexes } from 'design-system/z-indexes';
+import { Row } from 'components/row-column';
+import { Filters } from './filters';
 
-const Catalogue: FC = () => {
+const Catalogue: FC = memo( () => {
     const [ listings, setListings ] = useState<HomeListing[]>( [] );
+    const [ broker_name_set, setBrokerName ] = useState<Set<string>>( new Set() );
+    const [ listing_area_set, setListingArea ] = useState<Set<string>>( new Set() );
+    const [ listing_street_set, setListingStreet ] = useState<Set<string>>( new Set() );
 
-    const getListings = async () => {
+    const getListings = useCallback( async () => {
         const res = await api.getHomeListings();
         
         if ( res ) {
             setListings( res );
-        }
-    };
 
-    getListings();
+            const name_set = new Set<string>();
+            const area_set = new Set<string>();
+            const street_set = new Set<string>();
+
+            res.forEach( listing => {
+                if ( !name_set.has( listing.name ) ) {
+                    name_set.add( listing.name )
+                }
+                if ( !area_set.has( listing.address.city ) ) {
+                    area_set.add( listing.address.city )
+                }
+                if ( !street_set.has( listing.address.street ) ) {
+                    street_set.add( listing.address.street )
+                }
+            } )
+            setBrokerName( name_set );
+            setListingArea( area_set );
+            setListingStreet( street_set );
+        }
+    }, [] );
+
+    useEffect( () => {
+        ( async () => await getListings() )();
+    }, [] );
 
     return (
         <Grid 
@@ -47,64 +64,50 @@ const Catalogue: FC = () => {
                     src={ overline } 
                     style={{
                         width: '100%',
-                        paddingLeft: '36em',
+                        paddingLeft: '37em',
                         marginTop: '2em'
                     }}
                 />
             </AbsoluteDiv>
-            <Grid 
-                item 
-                xs={ 12 } 
-                style={{ 
-                    display: 'flex',
-                    marginTop: spacings._4 
-                }}
-            >
-                <>
-                    <CssBaseline />
-                    <Container maxWidth="xs">
-                        <Card>
-                            <CardContent>
-                                <Typography color="textSecondary" gutterBottom>
-                                    Word of the Day
-                                </Typography>
-                                <Typography variant="h5" component="h2">
-                                    Hello World
-                                </Typography>
-                                <Typography color="textSecondary">
-                                    adjective
-                                </Typography>
-                                <Typography variant="body2" component="p" style={{ fontFamily: 'inherit' }}>
-                                    well meaning and kindly. {'"a benevolent smile"'}
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">Learn More</Button>
-                            </CardActions>
-                        </Card>
-                    </Container>
-                </>
-
+            <Row>
                 <Grid 
-                    container 
-                    justify="center" 
-                    spacing={ 2 } 
+                    item 
+                    xs={ 12 } 
                     style={{ 
-                        position: 'relative',
-                        zIndex: zIndexes._2 
+                        display: 'flex',
+                        marginTop: spacings._4 
                     }}
                 >
-                    { listings.map( value => 
-                        <CardItem 
-                            key={ value.id } 
-                            home_listing={ value }
-                        />
-                    )}
+                    <Filters 
+                        broker_name_array={ Array.from( broker_name_set ) }
+                        listing_area_array={ Array.from( listing_area_set ) }
+                        listing_street_array={ Array.from( listing_street_set ) }
+                    />
+
+                    <Grid 
+                        container 
+                        justify="center" 
+                        spacing={ 2 } 
+                        style={{ 
+                            position: 'relative',
+                            zIndex: zIndexes._2,
+                            height: '100%',
+                            overflowY: 'auto', 
+                            margin: 0
+                        }}
+                    >
+                        { listings.map( value => 
+                            <CardItem 
+                                key={ value.id } 
+                                home_listing={ value }
+                            />
+                        )}
+                    </Grid>
+                    
                 </Grid>
-                
-            </Grid>
+            </Row>
         </Grid>
     );
-};
+} );
 
 export default Catalogue;

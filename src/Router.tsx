@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import Home from 'pages/Home';
 import Catalogue from 'pages/Catalogue';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';

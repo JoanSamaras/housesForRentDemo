@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, memo, useState } from 'react';
 import { 
     Button, 
     CardActions, 
@@ -50,7 +50,7 @@ const createMarker = ( marker_details: DemoMarker ) => {
     return new_marker;
 }
 
-export const CardItem: FC<Props> = p => {
+export const CardItem: FC<Props> = memo( p => {
     const { name, email, address, company } = p.home_listing;
     const [ view, setView ] = useState( View.initial );
     const [ open, setBrokerModalOpen ] = useState( false );
@@ -127,4 +127,4 @@ export const CardItem: FC<Props> = p => {
             </ListingCard>
         </Grid>
     )
-}
+})
