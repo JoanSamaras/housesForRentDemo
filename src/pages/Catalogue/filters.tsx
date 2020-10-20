@@ -12,11 +12,13 @@ import { zIndexes } from 'design-system/z-indexes';
 import { AbsoluteDiv } from 'components/absolute-div';
 import { Row } from 'components/row-column';
 import { colours } from 'design-system/colours';
+import { FilterSettings } from '.';
 
 type Props = {
     broker_name_array: string[]
     listing_area_array: string[]
     listing_street_array: string[]
+    updateListingsWithFilters: ( filters: FilterSettings ) => void
 }
 
 export const Filters: FC<Props> = memo( p => {
@@ -27,24 +29,60 @@ export const Filters: FC<Props> = memo( p => {
         listing_street_array
     } = p;
 
+    const updateListings = ( 
+        prop: {
+            broker_value: string,
+            area_value: string,
+            street_value: string
+        } 
+    ) => {
+        const filters: FilterSettings = {
+            broker: prop.broker_value,
+            area: prop.area_value,
+            street: prop.street_value
+        }
+
+        p.updateListingsWithFilters( filters );
+    }
+
     const [ selected_broker, setBroker ] = useState( '' );
     const handleBrokerChange = ( event: React.ChangeEvent<{ value: unknown }> ) => {
         setBroker( event.target.value as string );
+        updateListings( {
+            broker_value: event.target.value as string,
+            area_value: selected_area,
+            street_value: selected_street 
+        } );
     };
     const [ selected_area, setArea ] = useState( '' );
     const handleAreaChange = ( event: React.ChangeEvent<{ value: unknown }> ) => {
         setArea( event.target.value as string );
+        updateListings( {
+            broker_value: selected_broker,
+            area_value: event.target.value as string,
+            street_value: selected_street
+        } );
     };
     const [ selected_street, setStreet ] = useState( '' );
     const handleStreetChange = ( event: React.ChangeEvent<{ value: unknown }> ) => {
         setStreet( event.target.value as string );
+        updateListings( {
+            broker_value: selected_broker,
+            area_value: selected_area,
+            street_value: event.target.value as string
+        } );
     };
 
-    const clearFilters = useCallback( () => {
+    const clearFilters = () => {
         setBroker( '' );
         setArea( '' );
-        setStreet( '' )
-    }, [] )
+        setStreet( '' );
+        updateListings( {
+            broker_value: '',
+            area_value: '',
+            street_value: ''
+        } );
+    }
 
     return (
         <>

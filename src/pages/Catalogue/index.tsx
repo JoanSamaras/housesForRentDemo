@@ -11,8 +11,15 @@ import { zIndexes } from 'design-system/z-indexes';
 import { Row } from 'components/row-column';
 import { Filters } from './filters';
 
+export type FilterSettings = {
+    broker: string,
+    area: string,
+    street: string
+}
+
 const Catalogue: FC = memo( () => {
-    const [ listings, setListings ] = useState<HomeListing[]>( [] );
+    const [ initial_listings, setInitialListings ] = useState<HomeListing[]>( [] );
+    const [ listings, setFilteredListings ] = useState<HomeListing[]>( [] );
     const [ broker_name_set, setBrokerName ] = useState<Set<string>>( new Set() );
     const [ listing_area_set, setListingArea ] = useState<Set<string>>( new Set() );
     const [ listing_street_set, setListingStreet ] = useState<Set<string>>( new Set() );
@@ -21,7 +28,8 @@ const Catalogue: FC = memo( () => {
         const res = await api.getHomeListings();
         
         if ( res ) {
-            setListings( res );
+            setInitialListings( res );
+            setFilteredListings( res );
 
             const name_set = new Set<string>();
             const area_set = new Set<string>();
@@ -44,6 +52,20 @@ const Catalogue: FC = memo( () => {
         }
     }, [] );
 
+    const filterListings = ( filters: FilterSettings ) => {
+        let filtered_listings = [ ...initial_listings ];
+
+        // if we have at least one value we want to filter, otherwise return the initial_listings
+        if ( Object.values( filters ).join( '' ).length > 0 ) {
+            filtered_listings = filtered_listings.filter( listing => listing.name === filters.broker 
+                                                                            || listing.address.city === filters.area 
+                                                                            || listing.address.street === filters.street 
+            );
+        }
+
+        setFilteredListings( filtered_listings )
+    }
+
     useEffect( () => {
         ( async () => await getListings() )();
     }, [] );
@@ -53,7 +75,8 @@ const Catalogue: FC = memo( () => {
             container 
             spacing={ 2 }
             style={{
-                margin: 0
+                margin: 0,
+                height: '100%'
             }}
         >
             <PageTitle variant="h1">
@@ -69,19 +92,26 @@ const Catalogue: FC = memo( () => {
                     }}
                 />
             </AbsoluteDiv>
-            <Row>
+            <Row 
+                style={{
+                    width: '100%',
+                    height: 'inherit'
+                }}
+            >
                 <Grid 
                     item 
                     xs={ 12 } 
                     style={{ 
                         display: 'flex',
-                        marginTop: spacings._4 
+                        marginTop: spacings._4,
+                        height: '100%' 
                     }}
                 >
                     <Filters 
                         broker_name_array={ Array.from( broker_name_set ) }
                         listing_area_array={ Array.from( listing_area_set ) }
                         listing_street_array={ Array.from( listing_street_set ) }
+                        updateListingsWithFilters={ filterListings }
                     />
 
                     <Grid 
@@ -93,7 +123,8 @@ const Catalogue: FC = memo( () => {
                             zIndex: zIndexes._2,
                             height: '100%',
                             overflowY: 'auto', 
-                            margin: 0
+                            margin: 0,
+                            alignContent: 'baseline'
                         }}
                     >
                         { listings.map( value => 

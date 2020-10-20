@@ -1,12 +1,10 @@
 import React, { FC, memo, useState } from 'react';
-import { 
-    Button, 
+import { Button, 
     CardActions, 
     CardContent, 
     Grid, 
     StylesProvider, 
-    Typography 
-} from '@material-ui/core';
+    Typography } from '@material-ui/core';
 import ReactLeafletMap from 'components/map';
 import { marker, Marker } from 'leaflet';
 import { BrokerCard } from './broker-card';
@@ -16,7 +14,7 @@ import { LoremIpsum } from 'lorem-ipsum';
 import { spacings } from 'design-system/spacings';
 import { Column } from 'components/row-column';
 
-const lorem = new LoremIpsum({
+const lorem = new LoremIpsum( {
     sentencesPerParagraph: {
         max: 8,
         min: 4
@@ -25,7 +23,7 @@ const lorem = new LoremIpsum({
         max: 16,
         min: 4
     }
-});
+} );
 
 enum View {
     initial,
@@ -65,7 +63,9 @@ export const CardItem: FC<Props> = memo( p => {
     )
 
     return (
-        <Grid item>
+        <Grid item style={{
+            height: 'fit-content' 
+        }}>
             <ListingCard>
                 <CardContent
                     style={{
@@ -127,4 +127,4 @@ export const CardItem: FC<Props> = memo( p => {
             </ListingCard>
         </Grid>
     )
-})
+} )

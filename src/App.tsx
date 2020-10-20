@@ -6,6 +6,7 @@ import { StylesProvider } from '@material-ui/core';
 const MainApp = styled.div`
     display: flex;
     align-items: center;
+    flex-grow: 1;
 `;
 
 // #################################################################################
