@@ -57,5 +57,5 @@ export const colours = {
     grey6: '#757575',
     grey7: '#424242',
     grey8: '#212121',
-    grey9: '#000000',
+    grey9: '#000000'
 };
