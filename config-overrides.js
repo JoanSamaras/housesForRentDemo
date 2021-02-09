@@ -1,6 +1,8 @@
-const { useBabelRc, override, useEslintRc } = require('customize-cra');
+// eslint-disable-next-line
+const { useBabelRc, override, useEslintRc, disableEsLint } = require('customize-cra');
 
 module.exports = override(
     useBabelRc(),
-    useEslintRc()
+    // useEslintRc()
+    disableEsLint()
 )

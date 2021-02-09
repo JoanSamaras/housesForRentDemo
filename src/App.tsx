@@ -1,40 +1,22 @@
-import React, { FC } from "react";
-import logo from "./logo.svg";
-import styled from "styled-components";
-import { colour_map } from "./styles/colour-map";
-
+import React, { FC } from 'react';
+import styled from 'styled-components';
+import AppRouter from 'Router';
+import { StylesProvider } from '@material-ui/core';
 
 const MainApp = styled.div`
     display: flex;
-`
-
-const Logo = styled.img`
-    height: 40vmin;
-    pointer-events: none;
-`
-
-const Header = styled.div`
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    color: ${ colour_map.white };
-`
+    flex-grow: 1;
+`;
 
 // #################################################################################
 
-
-const App: FC = () => {
-    return (
+const App: FC = () => (
+    <StylesProvider injectFirst>
         <MainApp>
-            <Header>
-                <Logo src={ logo } alt="logo" />
-            </Header>
-            <p>
-                Edit and save to reload.
-            </p>
+            <AppRouter />
         </MainApp>
-    );
-}
+    </StylesProvider>
+);
 
 export default App;
