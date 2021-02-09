@@ -9,6 +9,7 @@ import { borderSizes } from 'design-system/border-sizes';
 import { colours } from 'design-system/colours';
 import { fontWeights } from 'design-system/font-weights';
 import { spacings } from 'design-system/spacings';
+import { Link } from 'react-router-dom';
 
 const FlexContainer = styled.div`
     display: flex;
@@ -47,7 +48,7 @@ const Header = styled.div`
     align-items: center;
     justify-content: center;
     width: 26rem;
-    height: 13rem;
+    height: 15rem;
     justify-content: space-between;
 `;
 
@@ -67,7 +68,7 @@ const Year = styled.p<{ vertical?: boolean, margin_right?: string }>`
     font-size: 5em;
     color: ${ colours.primary5 };
     font-weight: ${ fontWeights.extraBold };
-    margin: 0;
+    margin-top: ${ spacings._11 };
 
     ${ p => p.vertical && css`
         writing-mode: vertical-rl;
@@ -80,6 +81,7 @@ const Year = styled.p<{ vertical?: boolean, margin_right?: string }>`
 const Title = styled.p`
     font-size: ${ fontSizes.h1 };
     font-weight: ${ fontWeights.extraBold };
+    margin-bottom: 2.5rem;
 `
 
 const ParagraphWrapper = styled.span`
@@ -93,12 +95,13 @@ const ParagraphTitle = styled.p`
     margin-bottom: ${ spacings._1 };
 `
 
-const Button = styled.div`
+const StyledLink = styled( Link )`
     color: ${ colours.primary4 };
     cursor: pointer;
     display: flex;
     align-self: center;
     font-style: italic;
+    text-decoration: none;
     font-weight: ${ fontWeights.bold };
     margin-top: ${ spacings._3 };
     :hover {
@@ -156,7 +159,7 @@ const Home: FC = () => (
                             There is just one more page, waiting for you to play with the filters and 
                             discover it! 
                         </p>
-                        <Button>Take me there</Button>
+                        <StyledLink to='/catalogue'>Take me there &nbsp; &rarr;</StyledLink>
                     </span>
                 </ParagraphWrapper>
             </Column>
